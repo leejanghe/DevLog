@@ -20,6 +20,11 @@
 
 ## lottie 사용 방법
 
+0. lottie 설치
+```
+npm i lottie-react
+```
+
 1. 공식 홈페이지 들어가기
 
 [lottie](https://lottiefiles.com/featured)에 들어가서 원하는 아이템을 선택하고 Json 파일을 다운받습니다.
