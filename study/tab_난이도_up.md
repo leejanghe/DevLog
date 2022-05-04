@@ -62,7 +62,11 @@ const navs = [
   return (
       <>
       <DetailLayout>
-      <MainttextTag>저는 탭기능 입니당!</MainttextTag>
+      <MainttextTag>
+      {
+          navs[active-1].title
+      }
+      </MainttextTag>
       <DesignNavbar
       setActive={setActive} 
       navs={navs} 
