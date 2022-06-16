@@ -71,5 +71,53 @@
             }
 ```
 
+<br />
 
+## 내가 원한는 위치로 겹치게 하고 싶을때...
+
+때론 태그와 태그가 겹치면서 내가 원하는 곳으로 이동하고 싶을때가 있다. 이때 position만 잘사용하면 끝
+정말 쉽게 말해 부모태그에 position: relative; 속성을 걸고 움직이고 싶은 자식에다 position: absolute; 걸면 부모태그 범위 내에서 top, bottom, left, right를 활용하여 이동할수 있다. 꼭 알아두자!
+
+
+
+```html
+            <div className='profileImg'>
+             <p>프로필 사진</p>
+             <span><AccountCircleIcon/><span><EditIcon/></span></span>
+            </div>
+```
+
+
+```css
+.profileImg{
+            display: flex;
+            align-items: center;
+            position: relative;
+            >span{
+                cursor: pointer;
+                margin-left: 70px;
+                >svg{
+                    color: #48BEDF;
+                    font-size: 180px;
+                    
+                }
+                >span{
+                    position: absolute;
+                    color: #9B9B9B;
+                    background-color: white;
+                    border: 2px solid #9B9B9B;
+                    border-radius: 50%;
+                    left: 269px;
+                    bottom: 15px;
+                    cursor: pointer;
+                    >svg{
+                        padding: 5px;
+                        padding-bottom: 1px;
+                        width: 35px;
+                        height: 35px;
+                    }
+                }
+            }
+        }
+```
 
