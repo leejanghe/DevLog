@@ -121,3 +121,94 @@
         }
 ```
 
+<br />
+
+## scss 클래스명 이중으로 쓰기
+
+css 스타일을 재사용 할 때 공통으로 작업하는 도중 일부는 다르게 하고 싶을때가 있다. 이때 공통으로 사용하는 클래스명에 띄어쓰기를 해서 추가하는 방법이 있다.
+아래 예시 참고
+
+```html
+// 클래스명 certificationInputTex에 addfile을 추가
+<div className='certificationInputText addfile'>
+           <p>위에 addfile 추가한 경우</p>
+
+           <div>
+           <label className="addFileBtn">
+                        <input type="file" name="uploadFile" id="" accept=".pdf" />
+                        <AttachFileIcon /> 파일 첨부하기
+           
+            </label>
+          <div className='inputGuide'>
+             <p>인증 서류 제출 가이드</p>
+                <li>이미지 파일(jpg, png, gif, bmp)만 첨부 가능합니다.</li>
+                <li>제출된 파일은 신원 확인 후 즉시 삭제합니다.</li>
+          </div>
+           </div>
+        </div>
+```
+
+위와 같이 띄어쓰기를 하여 클래스명을 추가하면 css에서 공통으로 쓰고 있는 클래스명 안에 &기호를 써서 스타일을 적용 할 수 있다. 
+
+```css
+// certificationInputText안에 &기호를 붙여서 이어주면 끝
+.certificationInputText{
+
+...생략
+&.addfile{
+                    display: grid;
+                    grid-template-columns: 150px 450px;
+                    align-items: flex-start;
+                    >p{
+                        margin-top: 12px;
+                    }
+            .addFileBtn {
+                @include flex-content();
+                @include border-div-default(50px,100%){
+                    cursor: pointer;
+                    color: $light-blue;
+                    background-color: #F5FCFE;
+                };
+                > input {
+                    width: 0;
+                }
+                > svg {
+                    margin-right: 5px;
+                }
+                &:hover {
+                    background-color: $light-blue;
+                    color: white;
+                }
+             }
+             .inputGuide{
+                @include border-div-default(100px,100%){
+                    cursor: pointer;
+                    background-color: #F9F9F9;
+                    font-weight: 300;
+                    padding: 15px;
+                    >p{
+                        color: #FF9100;
+                        font-weight: 500;
+                        margin-bottom: 5px;
+                    }
+                    >li{
+                        color: #333333;
+                        // margin-top: 10px;
+                        font-size: 14px;
+                    }
+                };
+             }
+          }
+
+
+}
+```
+
+<br />
+
+## 다음은 머..
+
+
+
+
+
