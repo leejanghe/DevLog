@@ -48,7 +48,7 @@ import React from 'react'
 export const DesignerMain = () => {
   return (
       <>
-    <div><div>DesignerMain</div></div>
+    <div>DesignerMain</div>
       </>
   )
 }
