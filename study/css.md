@@ -206,7 +206,23 @@ css 스타일을 재사용 할 때 공통으로 작업하는 도중 일부는 �
 
 <br />
 
-## 다음은 머..
+## 정 중앙 정렬 코드
+
+옛날에도 정리하였지만 여기에 따로 정리하자! 나중에 모달같은거 만들때 유용하니 자주 써먹자!!#!
+
+```css
+export const LoginWrapper = styled.div`
+display: flex;
+position: fixed;
+top: 50%;
+left: 50%;
+-webkit-transform: translate(-50%, -50%);
+-moz-transform: translate(-50%, -50%);
+-ms-transform: translate(-50%, -50%);
+-o-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);
+`
+```
 
 
 
