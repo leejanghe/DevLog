@@ -224,6 +224,27 @@ transform: translate(-50%, -50%);
 `
 ```
 
+<br />
+
+## 버튼 인터렉티브!
+
+버튼에 호버뿐만 아니라 active효과에 transform속성을 주면 버튼의 스케일을 변화 시킬 수 있다. 인터렉티브한 버튼을 만들때 참고하자!@
+
+```css
+>button{
+    background:#48BEDF;
+    padding:15px;
+    color:#fff;
+    border-radius: 5px;
+    border:none;
+    margin-top:10px;
+    cursor:pointer;
+    &:active{
+        transform: scale(.99);
+    }
+}
+```
+
 
 
 
