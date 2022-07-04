@@ -104,5 +104,30 @@ git pull origin front
 
 땡겨오고 깃 커밋 푸쉬 하면 끝!
 
+<br />
+
+## 깃 설정하기
+
+우선 아래 명령어를 쳐서 깃 정보를 확인한다.
+
+```
+git config --list
+```
+
+확인후 자신의 정보가 아니면 아이디와 이메일을 아래 명령어로 통해 삭제한다.
+
+```
+git config --global --unset user.name
+git config --global --unset user.email
+```
+
+잘삭제 되었는지 다시 첫번째와 같이 리스트를 확인 후 자기 깃 이메일과 아이디를 아래 명령어로 통해 설정한다.
+
+```
+git config --global user.name "Your Name"
+git config --global user.email you@example.com
+```
+
+설정한후 다시 리스트를 확인하면 내아이디와 이메일이 나온다!
 
 
