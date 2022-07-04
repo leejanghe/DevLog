@@ -10,7 +10,7 @@
 git pull
 // 원격에서 저장소를 가져온다.
 
-git commit 
+git commit
 // 커밋 , 내용 저장
 
 git branch
@@ -31,6 +31,7 @@ git push
 <br />
 
 ### 예제
+
 bugFix라는 새 브랜치를 만듭니다
 git checkout bugFix를 입력해 bugFix 브랜치로 이동(checkout)합니다.
 커밋 한 번 하세요
@@ -70,18 +71,25 @@ git merge bugFix // 브런치 머지
 ## 브런치 깔끔하게 삭제 하는 방법
 
 나의 로컬에서 아래 명령어로 제거할 수 있다.
+
 ```
 git branch -d 브랜치명
 ```
+
 삭제 후 원격 저장소에서도 삭제하려면 아래 명령어!
+
 ```
 git push -d origin 삭제한 브랜치명
 ```
+
 삭제가 잘 되었는지 목록을 확인해준다.
+
 ```
 git branch -al
 ```
+
 삭제해도 브런치가 보인다면 아래 명령어를 통해 동기화 하기!
+
 ```
 git fetch --all --prune
 ```
@@ -146,7 +154,4 @@ git remote -v
 git remote add origin 'git레포주소'
 ```
 
-
-
-
-
+git test!
