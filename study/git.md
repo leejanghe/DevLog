@@ -130,4 +130,23 @@ git config --global user.email you@example.com
 
 설정한후 다시 리스트를 확인하면 내아이디와 이메일이 나온다!
 
+<br />
+
+## 깃 원격저장소 사용하기
+
+깃을 사용할때 내 로컬과 원격레포를 연동해서 사용하려면 git remote 연결을 해야한다. 연결되었는지 확인하는 방법은 아래 명령어와 같다.
+
+```
+git remote -v
+```
+
+연결이 안되어 있다면 아래 명령어를 통해 연결하자!
+
+```
+git remote add origin 'git레포주소'
+```
+
+
+
+
 
