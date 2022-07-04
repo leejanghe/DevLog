@@ -154,4 +154,10 @@ git remote -v
 git remote add origin 'git레포주소'
 ```
 
-git test!
+<br />
+
+## [Mac] GitHub push token 오류
+
+이거 하나 보고 해결하자 정말 유용하다!
+
+[참고자료](https://hyeo-noo.tistory.com/184)
