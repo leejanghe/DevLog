@@ -245,6 +245,65 @@ transform: translate(-50%, -50%);
 }
 ```
 
+<br />
+
+## 클래스명 상태 조건에 따라 스타일 달리하기
+
+리엑트에서 상태관리 함수를 활용해서 클래스명에 상태를 부여하여 조건에 따른 css를 꾸밀수 있다.
+
+```js
+const [workShowImg, setWorkShowImg] =useState(true)
+
+//... 생략
+
+<div className={`UploadImgWrapper ${workShowImg === false ? 'noLine':''}`}>
+                        {imageIdList!==undefined ? imageIdList.map(img => (
+                            <img key={img.id} src={img.path} onClick={deletePDFfile}/>
+                            
+                        )) : '' }
+</div>
+```
+
+위에 클래스명과 같이 workShowImg의 상태가 false값이면 클래스명 noLine을 추가해서 사용할 수 있다.
+noLine을 사용하려면 css는 아래와 같이 사용하면 된다.
+
+```css
+.UploadImgWrapper {
+                &.noLine{
+                    border: none;
+                }
+                width: 90%;
+                min-height: 400px;
+                height: auto;
+                border: 2px dashed #48BEDF;
+                border-radius: 5px;
+                padding: 15px;
+                margin: 10px 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                }
+            }
+            //...생략
+```
+위와 같이 클래스명 중첩사용시 해당 클래스명안에 &.기호를 사용해서 사용하면 된다. 이렇게 되면
+ workShowImg의 상태가 false값이면 볼더값은 사라지게 된다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
