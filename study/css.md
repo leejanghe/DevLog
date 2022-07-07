@@ -306,9 +306,38 @@ noLine을 사용하려면 css는 아래와 같이 사용하면 된다.
 
 <br />
 
+## react-router-dom에서 Link태그 css안먹힐때! (스타일컴포넌트)
+
+styled(Link)``;를 해주면 Link의 모든 속성을 inherit하면서 새로운 속성을 더해줄 수 있다.
+
+```js
+// 기존 안먹힘
+
+//..생략
+>span{
+        cursor:pointer;
+        color:#48BEDF;
+        text-decoration:underline;
+    }
+    .link{
+        color:#48BEDF;
+    }
+    //...생략
+}
+
+<p>이미 아이디가 있으신가요? <span className='link'><Link to="/login">로그인</Link></span></p>
 
 
-
+// 먹힘
+//..생략
+const StyledLink = styled(Link)`
+cursor:pointer;
+color:#48BEDF;
+text-decoration:underline;
+`
+//..생략
+<p>이미 아이디가 있으신가요? <span className='link'><StyledLink to="/login">로그인</StyledLink></span></p>
+```
 
 
 
