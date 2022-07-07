@@ -326,9 +326,10 @@ styled(Link)``;를 해주면 Link의 모든 속성을 inherit하면서 새로운
 }
 
 <p>이미 아이디가 있으신가요? <span className='link'><Link to="/login">로그인</Link></span></p>
+```
 
-
-// 먹힘
+```js
+// 먹힘 
 //..생략
 const StyledLink = styled(Link)`
 cursor:pointer;
