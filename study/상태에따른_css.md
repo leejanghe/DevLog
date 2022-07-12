@@ -74,3 +74,68 @@ const [data, setData] = useState([
 
 export default StatusValue
 ```
+
+<br />
+
+## 상태에 따른 css변경하기 라디오 채크 버전
+
+라디오 채크를 활용힐 때 상태에 따른 css를 적용 할 수 있다. 많이 사용하는 기술이니 꼭 숙지하자! 
+
+```js
+// 상위 컴포넌트에서 상태 관리를 하고 작업 할 하위 컴포넌트에 넘겨줌
+const [selectMember, setSelectMember] = useState({type:''})
+```
+
+위에 상태를 아래로 넘겨줬다는 가정하에 아래 코드를 살펴 보자!
+
+```js
+import React from 'react'
+
+// 상태 값 전달 받음
+function MemberType({selectMember,setSelectMember}) {
+
+
+
+    const MemberSelect = [
+        { type : '개인', p:'사업자 등록번호가 없는 개인'},
+        { type : '사업자',p:'개인사업자 또는 법인사업자' },
+    ]
+
+// 클릭시 상태 값을 확인 할 수 있다. 많이 사용함
+    const clickHandler = status => {
+        setSelectMember(status)
+    }
+
+  return (
+    <>
+    {/* 회원 유형 */}
+    <div className='certificationText'>
+            <h3>회원 유형</h3>
+        </div>
+        <div className='certificationInputText category'>
+          <p>유형</p>
+        {
+            MemberSelect&& MemberSelect.map(item=>(
+                <div className={`userCategory ${selectMember.type === item.type && 'check'}`} onClick={()=>clickHandler(item)}> 
+                
+            <div>
+          <input type="radio" name="개인" value="개인"/><label>{item.type}</label>
+            </div>
+          <p>{item.p}</p>
+          </div>
+            ))
+        }
+    </div>
+    </>
+  )
+}
+
+export default MemberType
+```
+
+여기서 중요한 코드는 `<div className={`userCategory ${selectMember.type === item.type && 'check'}`} onClick={()=>clickHandler(item)}>` 이다.
+온클릭을 할 때마다 타입에 따라 css  check를 붙이거나 안붙이는 역할을 한다. 유용하니 다음에도 써먹자!
+
+
+
+
