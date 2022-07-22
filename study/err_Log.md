@@ -77,3 +77,20 @@ export const DesignerMain = () => {
   <Route path="*" element={<NoMatchPage />} />
 </Routes>
 ```
+
+<br />
+
+## 'usehistory' is not exported from 'react-router-dom' 오류
+
+리엑트 업데이트 후 usehistory 대신 useNavigate로 변경 되었다. 사용법은 기존 useHistory와 비슷하고 던어만 바꿔주면 된다.
+
+```js
+import {useNavigate} from 'react-router-dom';
+
+//... 생략
+const navigate = useNavigate()
+
+//... 생략
+
+<button onClick={()=>navigate('/')}>홈으로</button>
+```
