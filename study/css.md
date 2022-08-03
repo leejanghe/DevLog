@@ -356,7 +356,31 @@ pre 태그는 내부에 있는 글을 “그대로”보여주는 특징이 있�
 
 <br />
 
-## 다음은 뭐?
+## text흘러 넘치지 않게... 표시하는 방법
+
+텍스트 인풋에 높이와 넓이의 값을 정하고 하는 것이 효율적이다!
+
+```html
+<div class="box">
+      <p>줄이 넘쳐 흐를때!!줄이 넘쳐 흐를때!!줄이 넘쳐 흐를때!!줄이 넘쳐 흐를때!!줄이 넘쳐 흐를때!!줄이 넘쳐 흐를때!!줄이 넘쳐 흐를때!!줄이 넘쳐 흐를때!!줄이 넘쳐 흐를때!!</p>
+ </div>
+```
+
+```css
+.boxcon{
+  height: 100px;
+  width:200px;
+}
+
+p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; //줄수
+    -webkit-box-orient: vertical;
+}
+```
 
 
 
