@@ -340,8 +340,23 @@ text-decoration:underline;
 <p>이미 아이디가 있으신가요? <span className='link'><StyledLink to="/login">로그인</StyledLink></span></p>
 ```
 
+<br />
 
+## pre태그를 사용시 줄바꿈이 되지 않는 현상
 
+pre 태그는 내부에 있는 글을 “그대로”보여주는 특징이 있어, width가 넘어가도 줄바꿈이 되지 않는다.
+이때는 pre 태그 css에 white-space: pre-wrap를 추가해준다.
+(+width 가 지정되어 있어야 한다)
+
+```css
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+```
+
+<br />
+
+## 다음은 뭐?
 
 
 
