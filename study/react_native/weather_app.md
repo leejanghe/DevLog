@@ -108,3 +108,36 @@ export default function App() {
   );
 }
 ```
+
+추가
+
+horizontal 적용시 옆으로 스크롤 가능!
+
+```js
+<ScrollView horizontal style={styles.weather}>
+  <View style={styles.day}>
+    <Text style={styles.temp}>28</Text>
+    <Text style={styles.des}>Sunny</Text>
+  </View>
+
+  <View style={styles.day}>
+    <Text style={styles.temp}>28</Text>
+    <Text style={styles.des}>Sunny</Text>
+  </View>
+
+  <View style={styles.day}>
+    <Text style={styles.temp}>28</Text>
+    <Text style={styles.des}>Sunny</Text>
+  </View>
+
+  <View style={styles.day}>
+    <Text style={styles.temp}>28</Text>
+    <Text style={styles.des}>Sunny</Text>
+  </View>
+
+  <View style={styles.day}>
+    <Text style={styles.temp}>28</Text>
+    <Text style={styles.des}>Sunny</Text>
+  </View>
+</ScrollView>
+```
