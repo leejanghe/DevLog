@@ -50,3 +50,11 @@ npm start
 여기 사이트 정말 좋다 vs에디터에 안해도 웹에서 충분히 작업을 진행 할 수 있다. 참고하자!
 
 [링크](https://snack.expo.dev/)
+
+<br />
+
+## 페키지 다운 받는 곳
+
+[api reference](https://docs.expo.dev/versions/latest/)
+[https://reactnative.directory/](https://reactnative.directory/)
+[공식홈페이지](https://reactnative.dev/docs/getting-started)
