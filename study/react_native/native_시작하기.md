@@ -58,3 +58,18 @@ npm start
 [api reference](https://docs.expo.dev/versions/latest/)
 [https://reactnative.directory/](https://reactnative.directory/)
 [공식홈페이지](https://reactnative.dev/docs/getting-started)
+
+<br />
+
+## 단축키
+
+그냥 편하게 대부분 r또는 w를 많이 쓸것같다.
+
+› Press a │ open Android
+› Press i │ open iOS simulator
+› Press w │ open web
+
+› Press r │ reload app
+› Press m │ toggle menu
+
+› Press ? │ show all commands
