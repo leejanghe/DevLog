@@ -109,12 +109,14 @@ export default function App() {
 }
 ```
 
-추가
+<br />
 
-horizontal 적용시 옆으로 스크롤 가능!
+## horizontal
+
+horizontal 적용시 옆으로 스크롤 가능! 다만 스타일적용을 위해선 contentContainerStyle 프롭스를 사용하여야 한다.
 
 ```js
-<ScrollView horizontal style={styles.weather}>
+<ScrollView horizontal contentContainerStyle={styles.weather}>
   <View style={styles.day}>
     <Text style={styles.temp}>28</Text>
     <Text style={styles.des}>Sunny</Text>
@@ -140,4 +142,60 @@ horizontal 적용시 옆으로 스크롤 가능!
     <Text style={styles.des}>Sunny</Text>
   </View>
 </ScrollView>
+```
+
+<br/ >
+
+### ScrollView 추가 프롭스 (자주 사용)
+
+pagingEnabled는 페이지를 매끄럽게 해주는 기능을 제공한다. indicatorStyle는 케러셀 처럼 페이지가 넘어갈때 생기는 메뉴같은 기능이다. 색상 및 showsHorizontalScrollIndicator속성을 통해 제어가 가능하다.
+
+```js
+import { StatusBar } from "expo-status-bar";
+import { ScrollView, StyleSheet, Text, View, Dimensions } from "react-native";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <View style={styles.city}>
+        <Text style={styles.cityName}>Seoul</Text>
+      </View>
+      // 중요 프롭스들
+      <ScrollView
+        pagingEnabled
+        horizontal
+        indicatorStyle="white"
+        contentContainerStyle
+        // showsHorizontalScrollIndicator={false}
+        style={styles.weather}
+      >
+        <View style={styles.day}>
+          <Text style={styles.temp}>28</Text>
+          <Text style={styles.des}>Sunny</Text>
+        </View>
+
+        <View style={styles.day}>
+          <Text style={styles.temp}>28</Text>
+          <Text style={styles.des}>Sunny</Text>
+        </View>
+
+        <View style={styles.day}>
+          <Text style={styles.temp}>28</Text>
+          <Text style={styles.des}>Sunny</Text>
+        </View>
+
+        <View style={styles.day}>
+          <Text style={styles.temp}>28</Text>
+          <Text style={styles.des}>Sunny</Text>
+        </View>
+
+        <View style={styles.day}>
+          <Text style={styles.temp}>28</Text>
+          <Text style={styles.des}>Sunny</Text>
+        </View>
+      </ScrollView>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
 ```
