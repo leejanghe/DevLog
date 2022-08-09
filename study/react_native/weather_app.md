@@ -224,3 +224,13 @@ day: {
     // backgroundColor: "teal",
   },
 ```
+
+<br />
+
+## location 위치가져오기
+
+로케이션 설치
+
+```js
+expo install expo-location
+```
