@@ -229,8 +229,41 @@ day: {
 
 ## location 위치가져오기
 
-로케이션 설치
+엑스포에서 아주 매력적인 기능중 하나인 location 이거 하나면 위치 기반 관련 앱개발을 할 수 있다. 우선 아래와 같이 설치를 해준다.
 
 ```js
 expo install expo-location
 ```
+
+공식문서를 보면 알 수 있겠지만 기본적인 코드 틀이다.
+
+```js
+const [city, setCity] = useState("Loading...");
+
+useEffect(() => {
+  (async () => {
+    //권한 인증 받기 코드
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      setErrorMsg("Permission to access location was denied");
+      return;
+    }
+
+    // 현 지역정보 받아오기
+    const {
+      coords: { latitude, longitude },
+    } = await Location.getCurrentPositionAsync({ accuracy: 5 });
+
+    // 위도와 경도 값에 맞는 위치 파악 코드
+    const location = await Location.reverseGeocodeAsync(
+      { latitude, longitude },
+      {
+        useGoogleMaps: false,
+      }
+    );
+    setCity(location[0].city);
+  })();
+}, []);
+```
+
+[공식문서](https://docs.expo.dev/versions/v46.0.0/sdk/location/)
