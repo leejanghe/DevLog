@@ -199,3 +199,28 @@ export default function App() {
   );
 }
 ```
+
+<br />
+
+## 디바이스 넓이 가져오는 함수
+
+Dimensions를 활용하면 디바이스 기종 즉 본인이 사용하고 있는 장치의 넓이 값을 가져올수 있다. 휴대폰의 기종이 각각 다르니 이걸 많이 이용하자!
+
+```js
+import { StatusBar } from "expo-status-bar";
+import { ScrollView, StyleSheet, Text, View, Dimensions } from "react-native";
+
+// 핸드폰 스크린 넓이 및 높이를 가져올수 있음
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+console.log(SCREEN_WIDTH);
+
+
+// 생략 css
+day: {
+    // flex: 1,
+    width: SCREEN_WIDTH,
+    alignItems: "center",
+    // justifyContent: "center",
+    // backgroundColor: "teal",
+  },
+```
