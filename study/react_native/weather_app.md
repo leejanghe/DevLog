@@ -267,3 +267,7 @@ useEffect(() => {
 ```
 
 [공식문서](https://docs.expo.dev/versions/v46.0.0/sdk/location/)
+
+<br />
+
+## weather api
