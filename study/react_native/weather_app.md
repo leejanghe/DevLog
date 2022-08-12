@@ -271,3 +271,137 @@ useEffect(() => {
 <br />
 
 ## weather api
+
+[공식문서](https://openweathermap.org/api/)
+
+```js
+import { StatusBar } from "expo-status-bar";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ActivityIndicator,
+} from "react-native";
+import * as Location from "expo-location";
+import React, { useState, useEffect } from "react";
+
+// 핸드폰 스크린 넓이 및 높이를 가져올수 있음
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+console.log(SCREEN_WIDTH);
+const API_KEY = "비밀~";
+
+export default function App() {
+  const [city, setCity] = useState("Loading...");
+  const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      //권한 인증 받기 코드
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      // 현 지역정보 받아오기
+      const {
+        coords: { latitude, longitude },
+      } = await Location.getCurrentPositionAsync({ accuracy: 5 });
+
+      // 위도와 경도 값에 맞는 위치 파악 코드
+      const location = await Location.reverseGeocodeAsync(
+        { latitude, longitude },
+        {
+          useGoogleMaps: false,
+        }
+      );
+      setCity(location[0].city);
+
+      //  날씨 API 콜하기~
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={part}&appid=${API_KEY}&units=metric`
+      );
+      const json = await response.json();
+      setDays(json.daily);
+    })();
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.city}>
+        <Text style={styles.cityName}>{city}</Text>
+      </View>
+      <ScrollView
+        pagingEnabled
+        horizontal
+        indicatorStyle="white"
+        contentContainerStyle
+        // showsHorizontalScrollIndicator={false}
+        style={styles.weather}
+      >
+        {days.length === 0 ? (
+          <View style={styles.day}>
+            <ActivityIndicator
+              size="large"
+              color="#fff"
+              style={{ marginTop: 10 }}
+            />
+          </View>
+        ) : (
+          days.map((day, index) => (
+            <View style={styles.day}>
+              <Text style={styles.temp}>
+                {parseFloat(day.temp.day).toFixed(1)}
+              </Text>
+              <Text style={styles.des}>{day.weather[0].main}</Text>
+              <Text style={styles.destext}>{day.weather[0].description}</Text>
+            </View>
+          ))
+        )}
+      </ScrollView>
+
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: "1",
+    backgroundColor: "tomato",
+  },
+  city: {
+    flex: "1.2",
+    // backgroundColor: "blue",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cityName: {
+    fontSize: 68,
+    fontWeight: "500",
+  },
+  weather: {
+    // flex: "3",
+    // backgroundColor: "teal",
+  },
+  day: {
+    // flex: 1,
+    width: SCREEN_WIDTH,
+    alignItems: "center",
+    // justifyContent: "center",
+    // backgroundColor: "teal",
+  },
+  temp: {
+    marginTop: 50,
+    fontSize: 188,
+  },
+  des: {
+    fontSize: 60,
+  },
+  destext: {
+    fontSize: 20,
+  },
+});
+```
