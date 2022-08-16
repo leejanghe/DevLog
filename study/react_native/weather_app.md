@@ -409,3 +409,32 @@ const styles = StyleSheet.create({
 <br />
 
 ### 아이콘 넣기
+
+네이티브에서 아래 링크를 활용해서 만들어 보자!
+
+[아이콘 링크](https://icons.expo.fyi/)
+
+```js
+// 사용할 아이콘을 임포트한다.
+import { Fontisto } from "@expo/vector-icons";
+
+// 오른쪽은 해당 api날씨이름, 오른쪽은 아이콘 이름
+const icons = {
+  Clouds: "cloudy",
+  Clear: "day-sunny",
+  Atmosphere: "cloudy-gusts",
+  Snow: "snow",
+  Rain: "rains",
+  Drizzle: "rain",
+  Thunderstorm: "lightning",
+};
+
+//..생략
+// 네임에다 api날씨에 따른 아이콘 이름을 넣는다.
+// 사이즈나 컬러를 설정할수 있음.
+<Fontisto name={icons[day.weather[0].main]} size={68} color="white" />;
+
+//
+```
+
+아이콘 넣는 법은 어렵지 않다. 그냥 임포트 잘해주고 해당 아이콘에 네임 벨류값만 잘 넣어주면 끝!
