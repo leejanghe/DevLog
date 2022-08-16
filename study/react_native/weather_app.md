@@ -438,3 +438,173 @@ const icons = {
 ```
 
 아이콘 넣는 법은 어렵지 않다. 그냥 임포트 잘해주고 해당 아이콘에 네임 벨류값만 잘 넣어주면 끝!
+
+<br />
+
+### 날씨 앱만들기 최종 코드
+
+```js
+import { StatusBar } from "expo-status-bar";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ActivityIndicator,
+} from "react-native";
+import * as Location from "expo-location";
+import React, { useState, useEffect } from "react";
+import { Fontisto } from "@expo/vector-icons";
+
+// 핸드폰 스크린 넓이 및 높이를 가져올수 있음
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+console.log(SCREEN_WIDTH);
+const API_KEY = "3cb168b52a34c00b091dc30df25e790b";
+
+const icons = {
+  Clouds: "cloudy",
+  Clear: "day-sunny",
+  Atmosphere: "cloudy-gusts",
+  Snow: "snow",
+  Rain: "rains",
+  Drizzle: "rain",
+  Thunderstorm: "lightning",
+};
+
+export default function App() {
+  const [city, setCity] = useState("Loading...");
+  const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      //권한 인증 받기 코드
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      // 현 지역정보 받아오기
+      const {
+        coords: { latitude, longitude },
+      } = await Location.getCurrentPositionAsync({ accuracy: 5 });
+
+      // 위도와 경도 값에 맞는 위치 파악 코드
+      const location = await Location.reverseGeocodeAsync(
+        { latitude, longitude },
+        {
+          useGoogleMaps: false,
+        }
+      );
+      setCity(location[0].city);
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={part}&appid=${API_KEY}&units=metric`
+      );
+      const json = await response.json();
+      setDays(json.daily);
+    })();
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.city}>
+        <Text style={styles.cityName}>{city}</Text>
+      </View>
+      <ScrollView
+        pagingEnabled
+        horizontal
+        indicatorStyle="white"
+        contentContainerStyle
+        // showsHorizontalScrollIndicator={false}
+        style={styles.weather}
+      >
+        {days.length === 0 ? (
+          <View style={styles.day}>
+            <ActivityIndicator
+              size="large"
+              color="#fff"
+              style={{ marginTop: 10 }}
+            />
+          </View>
+        ) : (
+          days.map((day, index) => (
+            <View style={{ ...styles.day, alignItems: "center" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  width: "100%",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={styles.temp}>
+                  {parseFloat(day.temp.day).toFixed(1)}
+                </Text>
+                <Fontisto
+                  name={icons[day.weather[0].main]}
+                  size={68}
+                  color="white"
+                />
+              </View>
+
+              <Text style={styles.des}>{day.weather[0].main}</Text>
+              <Text style={styles.destext}>{day.weather[0].description}</Text>
+            </View>
+          ))
+        )}
+      </ScrollView>
+
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: "1",
+    backgroundColor: "tomato",
+  },
+  city: {
+    flex: "1.2",
+    // backgroundColor: "blue",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cityName: {
+    fontSize: 68,
+    fontWeight: "500",
+    color: "white",
+  },
+  weather: {
+    // flex: "3",
+    // backgroundColor: "teal",
+  },
+  day: {
+    // flex: 1,
+    width: SCREEN_WIDTH,
+    alignItems: "flex-start",
+    paddingHorizontal: 20,
+    // justifyContent: "center",
+    // backgroundColor: "teal",
+  },
+  temp: {
+    marginTop: 50,
+    fontWeight: "600",
+    fontSize: 100,
+    color: "white",
+  },
+  des: {
+    marginTop: -10,
+    fontSize: 30,
+    color: "white",
+    fontWeight: "500",
+  },
+  destext: {
+    marginTop: -5,
+    fontSize: 25,
+    color: "white",
+    fontWeight: "500",
+  },
+});
+```
