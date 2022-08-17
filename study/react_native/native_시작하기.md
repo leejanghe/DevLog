@@ -26,7 +26,7 @@ $ brew install watchman
 터미널에서 documents경로에서 아래와 같이 설치하자! (경로 상관없음)
 
 ```
-npm init {앱이름}
+expo init {앱이름} --npm
 ```
 
 설치하면 선택지가 있는데 맨 위에있는거 선택하고 엔터! 설치 후 경로에 들어가서 켜주면 끝!
