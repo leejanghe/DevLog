@@ -99,3 +99,11 @@ export default Tooltip
 ```
 
 프로젝트를 진행하면서 많이 배워가는 것 같다! 기분 좋다!
+
+<br />
+
+## 추가 튤팁 관한 예제 사이트
+
+자바스크립트를 쓰지 않고 오직 html, css로 구현한 튤팁이 있다. 생각보다 나쁘지 않은것 같다.
+
+[튤팁구현](https://deeplify.dev/front-end/markup/tooltip)
