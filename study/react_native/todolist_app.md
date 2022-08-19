@@ -122,3 +122,66 @@ const onChangeText = (payload) => setText(payload);
 ```
 
 <br />
+
+### todos
+
+이번공부에선 inputtext 프롭스에서 onSubmitEditing={함수}, returnKeyType="done" 기억하자!! 그리고 Object.assign({},target, obj)는 객체를 쉽게 복사하고 합칠수 있는 문법이다. 물론 이문법 말고 rest문법을 사용해도 좋다!
+
+```js
+export default function App() {
+  const [working, setWorking] = useState(true);
+  const [text, setText] = useState("");
+  const [toDos, setToDos] = useState({});
+  const onChangeText = (payload) => setText(payload);
+  // const onChangeText = (payload) => console.log(payload);
+  const travel = () => setWorking(false);
+  const work = () => setWorking(true);
+
+  const addToDo = () => {
+    if (text === "") {
+      return;
+    }
+    const newToDos = Object.assign({}, toDos, {
+      [Date.now()]: { text, work: working },
+    });
+    setToDos(newToDos);
+    setText("");
+  };
+
+  console.log(toDos);
+  return (
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={work}>
+          <Text
+            style={{ ...styles.btnText, color: working ? "white" : theme.grey }}
+          >
+            Work
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={travel}>
+          <Text
+            style={{
+              ...styles.btnText,
+              color: !working ? "white" : theme.grey,
+            }}
+          >
+            Travel
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View>
+        <TextInput
+          onSubmitEditing={addToDo}
+          onChangeText={onChangeText}
+          returnKeyType="done"
+          value={text}
+          placeholder={working ? "Add to do" : "Where do you want to go?"}
+          style={styles.input}
+        />
+      </View>
+    </View>
+  );
+}
+```
