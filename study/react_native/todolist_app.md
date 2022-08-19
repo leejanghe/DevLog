@@ -99,4 +99,26 @@ export default function App() {
 
 <br />
 
-### 다음은 ?
+### TextInput
+
+웹에서는 textarea나 input태그를 통해 글을 작성할수 있다. 하지만 네이티브에선 오직 textInput태그를 통해 글을 작성할수있다. 또 한 다양한 프롭스가 있어서 내가 원하는 프롭스를 골라서 사용 할 수 있다. 아래 링크를 통해 다양하게 적용해보자.
+
+[textinput](https://reactnative.dev/docs/textinput)
+
+```js
+//..생략
+const [text, setText] = useState("");
+const onChangeText = (payload) => setText(payload);
+// const onChangeText = (payload) => console.log(payload);
+
+<View>
+  <TextInput
+    onChangeText={onChangeText}
+    value={text}
+    placeholder={working ? "Add to do" : "Where do you want to go?"}
+    style={styles.input}
+  />
+</View>;
+```
+
+<br />
