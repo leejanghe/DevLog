@@ -55,4 +55,48 @@ const styles = StyleSheet.create({
 });
 ```
 
-##
+<br />
+
+### 상태에 따른 스타일 적용
+
+네이티브에서 스타일을 적용할때 ...문법을 사용하면 기존 스타일링에 더 추가로 스타일을 적용 시킬 수 있다.
+
+```js
+export default function App() {
+  const [working, setWorking] = useState(true);
+
+  const travel = () => setWorking(false);
+  const work = () => setWorking(true);
+
+  return (
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={work}>
+          <Text
+            style={{ ...styles.btnText, color: working ? "white" : theme.grey }}
+          >
+            Work
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={travel}>
+          <Text
+            style={{
+              ...styles.btnText,
+              color: !working ? "white" : theme.grey,
+            }}
+          >
+            Travel
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+```
+
+추가적으로 onPress는 웹에서 onClick과 비슷한 개념이라고 생각하자!
+
+<br />
+
+### 다음은 ?
