@@ -260,3 +260,36 @@ const addToDo = async () => {
 ```
 
 여기서 parse는 json문자열을 파싱하는것 쉽게 말해 자바스크립트 객체로 변환, stringify는 자바스크립트 객체를 json문자열로 변환. 헷갈리지 말자!
+
+<br />
+
+### delete todos & alert
+
+웹에선 UI상 쓰지 않던 alert을 네이티브에서는 alert을 많이 활용한다. 심지어 네이티브에선 프롭스를 넣어 매력적으로 활용 할 수 있다. 사용법은 아래 공식문서를 참고하자!
+
+[alert 문서](https://reactnative.dev/docs/alert)
+
+```js
+const deleteToDo = (key) => {
+  Alert.alert("Delete To Do", "Are you sure?", [
+    { text: "Cancel" },
+    {
+      text: "I'm Sure",
+      style: "destructive",
+      onPress: () => {
+        const newToDos = { ...toDos };
+        delete newToDos[key];
+        setToDos(newToDos);
+        saveToDos(newToDos);
+      },
+    },
+  ]);
+};
+
+// ... 생략
+<TouchableOpacity onPress={() => deleteToDo(key)}>
+  <Fontisto name="trash" size={18} color={theme.grey} />
+</TouchableOpacity>;
+```
+
+<br />
