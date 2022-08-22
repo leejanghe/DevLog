@@ -142,4 +142,63 @@ const StyledDiv = styled.div`
 
 SASS의 중첩 스코프 규칙을 사용할 수 있습니다. 덕분에 내부의 모든 component를 styled-components로 생성하지 않아도, 하위 컴포넌트에게만 적용하고 싶은 스타일을 스코프 형태로 구현 할 수 있습니다. (주의: 모든 SASS 문법이 사용 가능하진 않습니다.)
 
+<br />
+
+### props 스킬
+
+아래 예제를 보고 이해하자 스타일 컴포넌트 props를 통해서 중복된 컴포넌트중 하나를 프롭스 css를 통해 다르게 표현 할 수 있다. 
+
+```js
+const ContentsWrapper = styled.div`
+  /* background: rgb(21, 112, 255, 0.1); */
+  background-color: ${(props) => props.background || "white"};
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem;
+  margin-bottom: 50px;
+<!--  중요 포인트 -->
+  ${(props) =>
+    props.two &&
+    css`
+      background: rgb(21, 112, 255, 0.1);
+    `}
+  > div {
+    padding: 100px;
+    > p {
+      font-size: 3.5rem;
+      font-weight: 600;
+    }
+    p:nth-child(2) {
+      margin-top: 10px;
+      color: #1570ff;
+    }
+    > span {
+      display: block;
+      margin-top: 30px;
+      font-weight: 500;
+      line-height: 25px;
+      font-size: 20px;
+    }
+  }
+`;
+
+//... 생략
+ return (
+    <>
+      <div>
+        <ContentsWrapper>
+            //...생략
+        </ContentsWrapper>
+        <ContentsWrapper two>
+          // ... 프롭스 two를 넘김
+        </ContentsWrapper>
+        <ContentsWrapper>
+          // ... 생략
+        </ContentsWrapper>
+      </div>
+```
+
+주의 할점은 임포트 할 때 import styled,{css} from 'styled-components' css도 같이 임포트하자!
 
