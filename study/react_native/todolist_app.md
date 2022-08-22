@@ -144,6 +144,9 @@ export default function App() {
     const newToDos = Object.assign({}, toDos, {
       [Date.now()]: { text, work: working },
     });
+
+    // ...문법 활용예시
+    const newToDos = { ...toDos, [Date.now()]: { text, work: working } };
     setToDos(newToDos);
     setText("");
   };
