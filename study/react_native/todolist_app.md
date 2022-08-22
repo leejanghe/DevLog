@@ -196,122 +196,67 @@ export default function App() {
 Object.keys 즉 객체를 map핑 하는 방법만 주의 깊게 보자!
 
 ```js
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
-  Pressable,
-  TextInput,
-  ScrollView,
-} from "react-native";
-import { theme } from "./colors";
-
-export default function App() {
-  const [working, setWorking] = useState(true);
-  const [text, setText] = useState("");
-  const [toDos, setToDos] = useState({});
-  const onChangeText = (payload) => setText(payload);
-  // const onChangeText = (payload) => console.log(payload);
-  const travel = () => setWorking(false);
-  const work = () => setWorking(true);
-
-  const addToDo = () => {
-    if (text === "") {
-      return;
-    }
-    // const newToDos = Object.assign({}, toDos, {
-    //   [Date.now()]: { text, work: working },
-    // });
-    const newToDos = { ...toDos, [Date.now()]: { text, work: working } };
-
-    setToDos(newToDos);
-    setText("");
-  };
-
-  console.log(toDos);
-  return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <View style={styles.header}>
-        <TouchableOpacity onPress={work}>
-          <Text
-            style={{ ...styles.btnText, color: working ? "white" : theme.grey }}
-          >
-            Work
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={travel}>
-          <Text
-            style={{
-              ...styles.btnText,
-              color: !working ? "white" : theme.grey,
-            }}
-          >
-            Travel
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <TextInput
-          onSubmitEditing={addToDo}
-          onChangeText={onChangeText}
-          returnKeyType="done"
-          value={text}
-          placeholder={working ? "Add to do" : "Where do you want to go?"}
-          style={styles.input}
-        />
-        <ScrollView>
-          {Object.keys(toDos).map((key) => (
-            <View style={styles.toDo} key={key}>
-              <Text style={styles.toDoText}>{toDos[key].text}</Text>
-            </View>
-          ))}
-        </ScrollView>
-      </View>
+//.. 생략
+<ScrollView>
+  {Object.keys(toDos).map((key) => (
+    <View style={styles.toDo} key={key}>
+      <Text style={styles.toDoText}>{toDos[key].text}</Text>
     </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.bg,
-    paddingHorizontal: 20,
-  },
-  header: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    marginTop: 100,
-  },
-  btnText: {
-    fontSize: 38,
-    fontWeight: "600",
-    color: "white",
-  },
-  input: {
-    backgroundColor: "#fff",
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    marginVertical: 20,
-    fontSize: 18,
-  },
-  toDo: {
-    backgroundColor: theme.grey,
-    marginBottom: 10,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    borderRadius: 15,
-  },
-  toDoText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "500",
-  },
-});
+  ))}
+</ScrollView>
+//.. 생략
 ```
+
+<br />
+
+### AsyncStorage 저장하는 방법
+
+아래 명령어를 통해 asyncStorage를 설치하자
+
+[AsyncStorage문서](https://docs.expo.dev/versions/v46.0.0/sdk/async-storage/)
+
+```
+expo install @react-native-async-storage/async-storage
+```
+
+```js
+// todos key설정
+const STORAGE_KEY = "@toDos";
+
+// 우선 설치한 AsyncStorage를 임포트를 해준다
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// useEffect를 통해 저장된 정보를 불러온다.
+useEffect(() => {
+  loadToDos();
+}, []);
+
+// setItem를 통해 todos를 저장해준다.
+const saveToDos = async (toSave) => {
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+};
+
+// getItem를 통해 저장된 todos를 가져와서 parse작업
+// 될수있으면 try catch문을 작성해서 오류 방지
+const loadToDos = async () => {
+  const s = await AsyncStorage.getItem(STORAGE_KEY);
+  setToDos(JSON.parse(s));
+  console.log("저장된거", s);
+  s !== null ? setToDos(JSON.parse(s)) : null;
+};
+
+const addToDo = async () => {
+  if (text === "") {
+    return;
+  }
+
+  const newToDos = { ...toDos, [Date.now()]: { text, working } };
+
+  setToDos(newToDos);
+  // 저장
+  await saveToDos(newToDos);
+  setText("");
+};
+```
+
+여기서 parse는 json문자열을 파싱하는것 쉽게 말해 자바스크립트 객체로 변환, stringify는 자바스크립트 객체를 json문자열로 변환. 헷갈리지 말자!
