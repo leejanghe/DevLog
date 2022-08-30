@@ -98,14 +98,47 @@ export default Auth;
  
  <br />
  
+ ### Login
+ ---
+ onAuthStateChanged 개념
+ 
+ 현재 curent user를 가져오는데 시간이 걸리기 때문에 아무리 user data가 browser에 있더라도 처음에는 인식하지 못하고 시간이 지나야 인식하기 시작 함 그래서 curent user를 인식할 때 화면이 표시 되어야 함. 표시되는 때를 Application이 초기화(인식) 되어 render가 된것을 표기해줘야 한다.
+ 
+event listener 처럼 event를 계속 듣기 위해 대기 하고 있고, 유저 상태에 변화가 있을 때(localstageDB) 그 변화를 알아 차리게 됨
+유저가 로그아웃 시에, 계정 생성시에도, firebase가 초기화 될 때도 실행 함으로서 로그인이 되는 순간도 알아 차리게 됨
  
  
- 
- 
- 
- 
- 
- 
+ ```js
+ import React, {useEffect, useState} from 'react';
+import AppRouter from 'components/Router';
+import { authService } from "fBase";
+
+
+function App() {
+  const [init, setInit] = useState(false); 
+  // 처음에는 false이고 나중에 사용자 존재 판명이 모두 끝났을 때 true를 통해 해당 화면을 render
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => { // user 판명을 듣고 
+      if(user) { // 있으면
+        setIsLoggedIn(true); // 로그인 됨
+      } else {
+        setIsLoggedIn(false); // 로그인 안됨
+      }
+      setInit(true); // user 판명 끝
+    });
+  }, [])
+
+  return (
+    <>
+    {init ? <AppRouter isLoggedIn={isLoggedIn}/> : "Initializing..." }
+    <footer>&copy; {new Date().getFullYear()}  Rwitter </footer>
+    </>
+  );
+}
+
+export default App;
+```
  
  
  
