@@ -55,3 +55,28 @@ export const authService = firebase.auth();
 [공식문서 auth/popup](https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth?hl=en&authuser=0#signinwithpopup)
 
 <br />
+
+### Logout
+
+---
+
+로그아웃은 간단하다 `signOut()`함수만 쓰면 끝이다
+
+```js
+import React from "react";
+import { authService } from "fbase";
+import { useHistory } from "react-router-dom";
+
+export default () => {
+  const history = useHistory();
+  const onLogOutClick = () => {
+    authService.signOut();
+    history.push("/");
+  };
+  return (
+    <>
+      <button onClick={onLogOutClick}>Log Out</button>
+    </>
+  );
+};
+```
