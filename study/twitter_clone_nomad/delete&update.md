@@ -71,3 +71,73 @@ const Home = ({ userObj }) => {
 };
 export default Home;
 ```
+
+<br />
+
+### delete & update
+
+[업데이트](https://firebase.google.com/docs/reference/js/v8/firebase.firestore.DocumentReference#update)
+[삭제](https://firebase.google.com/docs/reference/js/v8/firebase.firestore.DocumentReference#delete)
+
+공식문서를 보면 삭제는 그냥 뒤에 delete()를 사용하면 되고 업데이트는 update(data : UpdateData) 구조다
+
+```js
+import React, { useState } from "react";
+import { dbService } from "fbase";
+
+const Nweet = ({ nweetObj, isOwner }) => {
+  const [editing, setEditing] = useState(false);
+  const [newNweet, setNewNweet] = useState(nweetObj.text);
+  const onDeleteClick = async () => {
+    const ok = window.confirm("Are you sure you want to delete this nweet?");
+    if (ok) {
+      await dbService.doc(`nweets/${nweetObj.id}`).delete();
+    }
+  };
+  const toggleEditing = () => setEditing((prev) => !prev);
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    await dbService.doc(`nweets/${nweetObj.id}`).update({
+      text: newNweet,
+    });
+    setEditing(false);
+  };
+  const onChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setNewNweet(value);
+  };
+  return (
+    <div>
+      {editing ? (
+        <>
+          <form onSubmit={onSubmit}>
+            <input
+              type="text"
+              placeholder="Edit your nweet"
+              value={newNweet}
+              required
+              onChange={onChange}
+            />
+            <input type="submit" value="Update Nweet" />
+          </form>
+          <button onClick={toggleEditing}>Cancel</button>
+        </>
+      ) : (
+        <>
+          <h4>{nweetObj.text}</h4>
+          {isOwner && (
+            <>
+              <button onClick={onDeleteClick}>Delete Nweet</button>
+              <button onClick={toggleEditing}>Edit Nweet</button>
+            </>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Nweet;
+```
