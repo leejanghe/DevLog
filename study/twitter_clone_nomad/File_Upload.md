@@ -82,3 +82,76 @@ const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
 const response = await fileRef.putString(attachment, "data_url");
 console.log(response);
 ```
+
+<br />
+
+### 파일 업로드 삭제
+
+파일삭제 간단하다 refFromURL 메서드를 활용해서 객체안에 파일과 관련된 값을 삭제하면 끝이다.
+
+```js
+import React, { useState } from "react";
+import { dbService, storageService } from "fbase";
+
+const Nweet = ({ nweetObj, isOwner }) => {
+  const [editing, setEditing] = useState(false);
+  const [newNweet, setNewNweet] = useState(nweetObj.text);
+  const onDeleteClick = async () => {
+    const ok = window.confirm("Are you sure you want to delete this nweet?");
+    if (ok) {
+      await dbService.doc(`nweets/${nweetObj.id}`).delete();
+
+      // 파일삭제
+      await storageService.refFromURL(nweetObj.attachmentUrl).delete();
+    }
+  };
+  const toggleEditing = () => setEditing((prev) => !prev);
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    await dbService.doc(`nweets/${nweetObj.id}`).update({
+      text: newNweet,
+    });
+    setEditing(false);
+  };
+  const onChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setNewNweet(value);
+  };
+  return (
+    <div>
+      {editing ? (
+        <>
+          <form onSubmit={onSubmit}>
+            <input
+              type="text"
+              placeholder="Edit your nweet"
+              value={newNweet}
+              required
+              onChange={onChange}
+            />
+            <input type="submit" value="Update Nweet" />
+          </form>
+          <button onClick={toggleEditing}>Cancel</button>
+        </>
+      ) : (
+        <>
+          <h4>{nweetObj.text}</h4>
+          {nweetObj.attachmentUrl && (
+            <img src={nweetObj.attachmentUrl} width="50px" height="50px" />
+          )}
+          {isOwner && (
+            <>
+              <button onClick={onDeleteClick}>Delete Nweet</button>
+              <button onClick={toggleEditing}>Edit Nweet</button>
+            </>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Nweet;
+```
