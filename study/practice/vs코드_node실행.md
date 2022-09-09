@@ -24,3 +24,8 @@ node 실행할파일
 
 위와 같이 입력하면 터미널에서 콘솔값이 출력 된다. 나중에 간단한 코드같은거 작성할때 이용하자!
 
+<br />
+
+### 추가 코파일럿 사용법
+
+[링크 참고](https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-visual-studio-code)
