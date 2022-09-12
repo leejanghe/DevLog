@@ -11,7 +11,7 @@ npm i gh-pages
 ```js
 // package.json
 //... 생략
-  "homepage": "https://leejanghee.github.io/twitter_clone"
+  "homepage": "https://leejanghee.github.io/twitter_clone/"
 }
 ```
 
@@ -32,3 +32,5 @@ npm i gh-pages
 ### 4. 배포된 링크 클릭
 
 터미널창에 `npm run build` 입력하고 해당 링크로 이동하면 배포한 페이지가 나온다!
+
+추가적으로 npm run deploy를 하자
