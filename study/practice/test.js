@@ -22,29 +22,3 @@ function getDateString(date) {
   const day = date.getDate();
   return `${year}-${month}-${day}`;
 }
-
-//mbti 테스트
-function getMBTI() {
-  const answers = [];
-  const questions = document.querySelectorAll(".question");
-  questions.forEach((question) => {
-    const answer = question.querySelector("input:checked");
-    answers.push(answer.value);
-  });
-  const result = answers.reduce((acc, cur) => acc + cur);
-  const mbti = {
-    E: "외향형",
-    I: "내향형",
-    S: "감각형",
-    N: "직관형",
-    T: "사고형",
-    F: "감정형",
-    J: "결정형",
-    P: "유연형",
-  };
-  const resultMBTI = result
-    .split("")
-    .map((v) => mbti[v])
-    .join("");
-  document.querySelector(".result").innerHTML = resultMBTI;
-}
