@@ -13,6 +13,13 @@ npm i styled-components
 npm install @mui/material @emotion/react @emotion/styled --force
 npm install @mui/icons-material --force
 npm install @mui/lab --force
+
+// router
+npm i react-router-dom
+
+// 리덕스 사용한다면
+npm i redux react-redux redux-devtools-extension
+
 ```
 
 추가 사항 있으면 다시 정리하자!
